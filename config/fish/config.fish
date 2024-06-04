@@ -9,12 +9,16 @@ fish_add_path $HOME/.rye/shims
 fish_add_path $HOME/.cargo/bin
 
 # nvidia cuda
-fish_add_path /usr/local/cuda/bin
-set -x LD_LIBRARY_PATH /usr/local/cuda/lib64:$LD_LIBRARY_PATH
+fish_add_path /usr/local/cuda-12.1/bin
+set -x LD_LIBRARY_PATH /usr/local/cuda-12.1/lib64:$LD_LIBRARY_PATH
 
 # pytorch
-set -x PYTORCH_CUDA_ALLOC_CONF max_split_size_mb:128,garbage_collection_threshold:0.8
+set -x PYTORCH_CUDA_ALLOC_CONF expandable_segments:True
 set -x PYTORCH_DATASETS_PATH $HOME/datasets
+set -x TORCH_HOME $HOME/ml_data/.cache/torch
+
+# huggingface
+set -x HF_HOME $HOME/ml_data/.cache/huggingface
 
 # wezterm
 alias wezterm="flatpak run org.wezfurlong.wezterm"
@@ -25,5 +29,5 @@ abbr -a v nvim
 
 if status is-interactive
     # Commands to run in interactive sessions can go here
-    rbenv init - fish | source
+   rbenv init - fish | source
 end

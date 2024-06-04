@@ -29,6 +29,19 @@ vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
   end,
 })
 
+vim.api.nvim_create_autocmd({"BufEnter", "BufWinEnter"}, {
+  pattern = "*.rs",
+  callback = function(args)
+     -- tab & indent each filetype
+    -- print(args.match)
+    vim.api.nvim_buf_set_option(0, 'tabstop', 4) -- use 4 for rust
+    vim.api.nvim_buf_set_option(0, "smartindent", true)
+
+    vim.api.nvim_buf_set_option(0, 'shiftwidth', 0)
+    vim.api.nvim_buf_set_option(0, 'expandtab', true)
+  end,
+})
+
  -- psuedo-transparency for a floating window
 vim.api.nvim_win_set_option(0, "winblend", 20)
 

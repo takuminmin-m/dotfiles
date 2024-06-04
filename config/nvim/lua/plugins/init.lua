@@ -25,6 +25,7 @@ return {
       "nvim-tree/nvim-web-devicons",
       "rmehri01/onenord.nvim",
       "lewis6991/gitsigns.nvim",
+      "SmiteshP/nvim-navic",
     },
   },
 
@@ -77,12 +78,12 @@ return {
     "nvim-telescope/telescope.nvim",
     config = function() require "plugins.telescope" end,
     dependencies = {
-      {
-        "prochri/telescope-all-recent.nvim",
-        config = function() require("telescope-all-recent").setup {} end,
-        after = "telescope.nvim",
-        dependencies = "kkharji/sqlite.lua",
-      },
+      -- {
+        -- "prochri/telescope-all-recent.nvim",
+        -- config = function() require("telescope-all-recent").setup {} end,
+        -- after = "telescope.nvim",
+        -- dependencies = "kkharji/sqlite.lua",
+      -- },
       "nvim-tree/nvim-web-devicons",
       "nvim-lua/plenary.nvim",
     },
@@ -112,7 +113,7 @@ return {
         run = "make install_jsregexp",
         config = function() require "plugins.luasnip" end,
         dependencies = {
-          "saadparwaizl/cmp_luasnip",
+          "saadparwaiz1/cmp_luasnip",
           "rafamadriz/friendly-snippets",
         },
       },
@@ -154,4 +155,12 @@ return {
     event = { "UIEnter" },
     config = function() require "plugins.hlchunk" end,
   },
+  {
+    "mrcjkb/rustaceanvim",
+    ft = { "rust" },
+  },
+  -- {
+  --   "Pocco81/auto-save.nvim",
+  --   config = function() require "plugins.auto-save" end,
+  -- },
 }

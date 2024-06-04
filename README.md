@@ -1,5 +1,5 @@
 # dotfiles
 
-dotfiles for Ubuntu 23.10
+dotfiles for Ubuntu 24.10 LTS
 
 use with rcm

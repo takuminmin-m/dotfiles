@@ -123,3 +123,4 @@ then
 	exec fish
 fi
 
+. "$HOME/.cargo/env"

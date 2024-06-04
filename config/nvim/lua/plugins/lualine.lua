@@ -40,6 +40,7 @@ require("lualine").setup {
         sections = { "error", "warn", "info", "hint", },
         symbols = { error = ' ', warn = ' ', info = ' ', hint = '' },
       },
+      { "navic" },
     },
 
     lualine_x = {

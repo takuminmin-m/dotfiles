@@ -1,10 +1,15 @@
 local wezterm = require 'wezterm';
+
 return {
   -- font
   font = wezterm.font_with_fallback({
-    {family="Space Mono", harfbuzz_features={"kern", "clig", "liga-0"}},
-  }, {weight="Regular"}),
-  font_size = 11.0,
+    {
+      family="Moralerspace Krypton NF",
+      weight="Regular",
+      harfbuzz_features={ "calt=0", "liga=0", "dlig=0" },
+    },
+  }),
+  font_size = 12.0,
   color_scheme = "iceberg-dark",
 
   -- initial window size

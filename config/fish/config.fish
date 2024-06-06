@@ -23,6 +23,9 @@ set -x HF_HOME $HOME/ml_data/.cache/huggingface
 # wezterm
 alias wezterm="flatpak run org.wezfurlong.wezterm"
 
+# zed editor
+fish_add_path $HOME/zed-dev.app/bin
+
 # general aliases
 alias ls="ls --color=auto -a"
 abbr -a v nvim

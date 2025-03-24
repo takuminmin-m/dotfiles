@@ -7,20 +7,63 @@
 // custom settings, run the `open default settings` command
 // from the command palette or from `Zed` application menu.
 {
+  "theme": "One Dark",
+  "show_edit_predictions": false,
+  "assistant": {
+    "default_model": {
+      "provider": "copilot_chat",
+      "model": "gpt-4"
+    },
+    "version": "2"
+  },
+  "features": {
+    "edit_prediction_provider": "zed"
+  },
+
+  "base_keymap": "Atom",
   "ui_font_size": 16,
   "buffer_font_size": 14,
 
   "autosave": "on_focus_change",
 
   "vim_mode": true,
+  "cursor_blink": false,
+  "vertical_scroll_margin": 0,
+  "soft_wrap": "editor_width",
+
+  "inlay_hints": {
+    "enabled": true
+  },
+
+  "terminal": {
+    "font_family": "Moralerspace Krypton NF",
+    "font_features": {
+      "calt": 0,
+      "liga": 0,
+      "dlig": 0
+    },
+    "copy_on_select": true,
+    "shell": {
+      "program": "fish"
+    }
+  },
 
   "language_overrides": {
     "Ruby": {
+      "language_servers": ["solargraph", "!rubocop", "!ruby-lsp"],
       "tab_size": 2
     }
   },
 
-  "inlay_hints": {
-    "enabled": true
+  "lsp": {
+    "solargraph": {
+      "initialization_options": {
+        "diagnostics": true,
+        "formatting": true
+      },
+      "settings": {
+        "use_bundler": true
+      }
+    }
   }
 }

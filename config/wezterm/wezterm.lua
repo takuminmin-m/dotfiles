@@ -91,7 +91,4 @@ return {
       {Text=" " .. tab.active_pane.title .. " "},
     }
   end),
-
-  -- shell
-  default_prog = {"fish", "--login"},
 }

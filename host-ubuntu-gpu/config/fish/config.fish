@@ -2,9 +2,6 @@
 set -x RBENV_ROOT $HOME/.rbenv
 fish_add_path $RBENV_ROOT/bin
 
-# rye
-fish_add_path $HOME/.rye/shims
-
 # cargo
 fish_add_path $HOME/.cargo/bin
 

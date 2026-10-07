@@ -34,73 +34,78 @@ local function actionsMenu(nd)
     :find()
 end
 
-local api = require 'nvim-tree.api'
-local tree, fs, node = api.tree, api.fs, api.node
+-- nvim-tree.api functions are stubs until setup() runs, so build the table lazily
+local command
 
-local command = {
-  { '',      tree.change_root_to_node,       'CD' },
-  { '',      node.open.replace_tree_buffer,  'Open: In Place' },
-  { '',      node.show_info_popup,           'Info' },
-  { '',      fs.rename_sub,                  'Rename: Omit Filename' },
-  { '',      node.open.tab,                  'Open: New Tab' },
-  { '',      node.open.vertical,             'Open: Vertical Split' },
-  { '',      node.open.horizontal,           'Open: Horizontal Split' },
-  { '<BS>',  node.navigate.parent_close,     'Close Directory' },
-  { '<CR>',  node.open.edit,                 'Open' },
-  { '<Tab>', node.open.preview,              'Open Preview' },
-  { '>',     node.navigate.sibling.next,     'Next Sibling' },
-  { '<',     node.navigate.sibling.prev,     'Previous Sibling' },
-  { '.',     node.run.cmd,                   'Run Command' },
-  { '-',     tree.change_root_to_parent,     'Up' },
-  { 'a',     fs.create,                      'Create' },
-  { '',      api.marks.bulk.move,            'Move Bookmarked' },
-  { 'B',     tree.toggle_no_buffer_filter,   'Toggle No Buffer' },
-  { '',      fs.copy.node,                   'Copy' },
-  { 'C',     tree.toggle_git_clean_filter,   'Toggle Git Clean' },
-  { '[c',    node.navigate.git.prev,         'Prev Git' },
-  { ']c',    node.navigate.git.next,         'Next Git' },
-  { '',      fs.remove,                      'Delete' },
-  { '',      fs.trash,                       'Trash' },
-  { 'E',     tree.expand_all,                'Expand All' },
-  { '',      fs.rename_basename,             'Rename: Basename' },
-  { ']e',    node.navigate.diagnostics.next, 'Next Diagnostic' },
-  { '[e',    node.navigate.diagnostics.prev, 'Prev Diagnostic' },
-  { 'F',     api.live_filter.clear,          'Clean Filter' },
-  { 'f',     api.live_filter.start,          'Filter' },
-  { 'g?',    tree.toggle_help,               'Help' },
-  { 'gy',    fs.copy.absolute_path,          'Copy Absolute Path' },
-  { 'H',     tree.toggle_hidden_filter,      'Toggle Dotfiles' },
-  { 'I',     tree.toggle_gitignore_filter,   'Toggle Git Ignore' },
-  { 'J',     node.navigate.sibling.last,     'Last Sibling' },
-  { 'K',     node.navigate.sibling.first,    'First Sibling' },
-  { 'm',     api.marks.toggle,               'Toggle Bookmark' },
-  { 'o',     node.open.edit,                 'Open' },
-  { 'O',     node.open.no_window_picker,     'Open: No Window Picker' },
-  { '',      fs.paste,                       'Paste' },
-  { 'P',     node.navigate.parent,           'Parent Directory' },
-  { 'q',     tree.close,                     'Close' },
-  { 'r',     fs.rename,                      'Rename' },
-  { 'R',     tree.reload,                    'Refresh' },
-  { 's',     node.run.system,                'Run System' },
-  { 'S',     tree.search_node,               'Search' },
-  { 'U',     tree.toggle_custom_filter,      'Toggle Hidden' },
-  { 'W',     tree.collapse_all,              'Collapse' },
-  { '',      fs.cut,                         'Cut' },
-  { 'y',     fs.copy.filename,               'Copy Name' },
-  { 'Y',     fs.copy.relative_path,          'Copy Relative Path' },
+local function getCommands()
+  if command then return command end
+
+  local api = require 'nvim-tree.api'
+  local tree, fs, node = api.tree, api.fs, api.node
+
+  command = {
+    { '',      tree.change_root_to_node,       'CD' },
+    { '',      node.open.replace_tree_buffer,  'Open: In Place' },
+    { '',      node.show_info_popup,           'Info' },
+    { '',      fs.rename_sub,                  'Rename: Omit Filename' },
+    { '',      node.open.tab,                  'Open: New Tab' },
+    { '',      node.open.vertical,             'Open: Vertical Split' },
+    { '',      node.open.horizontal,           'Open: Horizontal Split' },
+    { '<BS>',  node.navigate.parent_close,     'Close Directory' },
+    { '<CR>',  node.open.edit,                 'Open' },
+    { '<Tab>', node.open.preview,              'Open Preview' },
+    { '>',     node.navigate.sibling.next,     'Next Sibling' },
+    { '<',     node.navigate.sibling.prev,     'Previous Sibling' },
+    { '.',     node.run.cmd,                   'Run Command' },
+    { '-',     tree.change_root_to_parent,     'Up' },
+    { 'a',     fs.create,                      'Create' },
+    { '',      api.marks.bulk.move,            'Move Bookmarked' },
+    { 'B',     tree.toggle_no_buffer_filter,   'Toggle No Buffer' },
+    { '',      fs.copy.node,                   'Copy' },
+    { 'C',     tree.toggle_git_clean_filter,   'Toggle Git Clean' },
+    { '[c',    node.navigate.git.prev,         'Prev Git' },
+    { ']c',    node.navigate.git.next,         'Next Git' },
+    { '',      fs.remove,                      'Delete' },
+    { '',      fs.trash,                       'Trash' },
+    { 'E',     tree.expand_all,                'Expand All' },
+    { '',      fs.rename_basename,             'Rename: Basename' },
+    { ']e',    node.navigate.diagnostics.next, 'Next Diagnostic' },
+    { '[e',    node.navigate.diagnostics.prev, 'Prev Diagnostic' },
+    { 'F',     api.live_filter.clear,          'Clean Filter' },
+    { 'f',     api.live_filter.start,          'Filter' },
+    { 'g?',    tree.toggle_help,               'Help' },
+    { 'gy',    fs.copy.absolute_path,          'Copy Absolute Path' },
+    { 'H',     tree.toggle_hidden_filter,      'Toggle Dotfiles' },
+    { 'I',     tree.toggle_gitignore_filter,   'Toggle Git Ignore' },
+    { 'J',     node.navigate.sibling.last,     'Last Sibling' },
+    { 'K',     node.navigate.sibling.first,    'First Sibling' },
+    { 'm',     api.marks.toggle,               'Toggle Bookmark' },
+    { 'o',     node.open.edit,                 'Open' },
+    { 'O',     node.open.no_window_picker,     'Open: No Window Picker' },
+    { '',      fs.paste,                       'Paste' },
+    { 'P',     node.navigate.parent,           'Parent Directory' },
+    { 'q',     tree.close,                     'Close' },
+    { 'r',     fs.rename,                      'Rename' },
+    { 'R',     tree.reload,                    'Refresh' },
+    { 's',     node.run.system,                'Run System' },
+    { 'S',     tree.search_node,               'Search' },
+    { 'U',     tree.toggle_custom_filter,      'Toggle Hidden' },
+    { 'W',     tree.collapse_all,              'Collapse' },
+    { '',      fs.cut,                         'Cut' },
+    { 'y',     fs.copy.filename,               'Copy Name' },
+    { 'Y',     fs.copy.relative_path,          'Copy Relative Path' },
 
 --{ '<2-LeftMouse>',  node.open.edit,        'Open' },
 
-  { '<Space>', actionsMenu,                  'Command' },
-}
+    { '<Space>', actionsMenu,                  'Command' },
+  }
 
-local function createTreeActions()
   for _, cmd in pairs(command) do
     table.insert(menuCommand, { name = cmd[3], handler = cmd[2] })
   end
-end
 
-createTreeActions()
+  return command
+end
 
 local M = {}
 
@@ -109,7 +114,7 @@ function M.on_attach(bufnr)
     return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, nowait = true }
   end
 
-  for _, cmd in pairs(command) do
+  for _, cmd in pairs(getCommands()) do
     if (string.len(cmd[1]) > 0) then
       vim.keymap.set('n', cmd[1], cmd[2], opts(cmd[3]))
     end

@@ -15,5 +15,7 @@ require("nvim-treesitter.configs").setup {
 
   indent = {
     enable = true,
+    -- treesitter indent returns 0 inside unclosed blocks in C; fall back to cindent
+    disable = {"c", "cpp"},
   }
 }
